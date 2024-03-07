@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import closeIcon from '../images/Icons/close-icon.png';
 
-function ImgPopup({ card, onClose }) {
+function ImagePopup ({ card, onClose }) {
     
     const [isOpen, setIsOpen] = useState(false);
 
@@ -64,4 +64,4 @@ function ImgPopup({ card, onClose }) {
     );
 };
 
-export default ImgPopup;
+export default ImagePopup;
