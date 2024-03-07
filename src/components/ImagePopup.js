@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import closeIcon from '../images/Icons/close-icon.png';
 
 function ImgPopup({ card, onClose }) {
-
+    
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -12,6 +12,25 @@ function ImgPopup({ card, onClose }) {
             setIsOpen(false);
         }
     }, [card]);
+
+    useEffect(() => {
+        const handleEscClose = (event) => {
+            if (event.key === "Escape" && isOpen) {
+                setIsOpen(false);
+                setTimeout(() => {  // To solve animation problem when closing.
+                    onClose();
+                }, 1000);
+            }
+        };
+    
+        if (isOpen) {
+            document.addEventListener("keydown", handleEscClose);
+        }
+    
+        return () => {
+            document.removeEventListener("keydown", handleEscClose);
+        };
+    }, [isOpen, onClose]); 
 
     // To solve animation problem when closing.
     // First the card information was removed and then the animation was made.
