@@ -40,9 +40,10 @@
 }
 
 .imgPopup__photo {
+  min-width: 400px;
   max-width: 75vw;
-  height: auto;
-  max-height: 75vh;
+  height: 75vh;
+  overflow: hidden;
 }
 
 .imgPopup__title {
@@ -103,6 +104,12 @@
   .imgPopup__close-icon {
     width: 25px;
     height: 25px;
+  }
+
+  .imgPopup__photo {
+    min-width: 50vw;
+    height: 50vh;
+    overflow: hidden;
   }
 }
 
