@@ -9,12 +9,7 @@ class Api {
             method: "GET",
             headers: this._headers,
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-                return response.json();
-            })
+            .then(this._checkResponse)
             .catch((error) => console.error("No se pudieron recuperar los datos de las tarjetas:", error));
     }
 
@@ -23,37 +18,24 @@ class Api {
             method: "GET",
             headers: this._headers,
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.statusText}`);
-                }
-                return response.json();
-            })
+            .then(this._checkResponse)
             .catch((error) => console.error("No se pudieron recuperar los datos del usuario:", error));
     }
 
 
-    updateProfile(name, about, submitButton) {
-
-        submitButton.textContent = "Guardando...";
-
+    updateProfile(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: "PATCH",
             headers: this._headers,
             body: JSON.stringify({
-                name: name,
-                about: about,
+                name,
+                about,
             }),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-
+            .then(this._checkResponse)
             .catch((error) => {
                 console.error("Error al actualizar el perfil:", error);
+                throw error;
             });
     }
 
@@ -63,24 +45,18 @@ class Api {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: newAvatarUrl.avatar
+                avatar: newAvatarUrl
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(this._checkResponse)
             .catch(error => {
                 console.error('Error al actualizar la foto de perfil:', error);
             });
     }
 
-    updateNewCard(name, link, submitButton) {
+    addCard(name, link) {
         const cardName = name;
         const cardLink = link;
-        submitButton.textContent = "Guardando...";
 
         return fetch(`${this._baseUrl}/cards`, {
             method: "POST",
@@ -90,12 +66,7 @@ class Api {
                 link: cardLink,
             }),
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(this._checkResponse)
             .catch((error) => {
                 console.error("Error al actualizar el perfil:", error);
             });
@@ -106,12 +77,7 @@ class Api {
             method: "DELETE",
             headers: this._headers,
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
+            .then(this._checkResponse)
             .catch((error) => console.error("Error al eliminar la tarjeta:", error));
     }
 
@@ -120,12 +86,7 @@ class Api {
             method: 'PUT',
             headers: this._headers,
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo dar "me gusta" a la tarjeta');
-                }
-                return response.json();
-            });
+            .then(this._checkResponse);
     }
 
     unlikeCard(cardId) {
@@ -133,21 +94,23 @@ class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo quitar el "me gusta" de la tarjeta');
-                }
-                return response.json();
-            });
+            .then(this._checkResponse);
+    }
+
+    _checkResponse(response) {
+        if (!response.ok) {
+            return Promise.reject(`Error: ${response.statusText}`);
+        }
+        return response.json();
     }
 }
 
 const api = new Api({
     baseUrl: `https://around.nomoreparties.co/v1/web_es_11`, // URL base de tu API
     headers: {
-      authorization: 'ba812068-4270-4077-a7da-dadcfc552381',
-      'Content-Type': 'application/json'
+        authorization: 'ba812068-4270-4077-a7da-dadcfc552381',
+        'Content-Type': 'application/json'
     }
-  });
+});
 
 export default api;
