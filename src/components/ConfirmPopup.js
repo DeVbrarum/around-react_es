@@ -28,7 +28,7 @@ function ConfirmPopup({ isOpen, onClose, onConfirm }) {
             setButtonText('Si');
         })
         .catch(() => {
-            setButtonText('Error');  // Opcionalmente, establece un mensaje de error
+            setButtonText('Error');
         });
     }
 

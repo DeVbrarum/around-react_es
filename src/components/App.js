@@ -28,7 +28,6 @@ function App() {
   useEffect(() => {
     api.getUserData()
       .then((userInfo) => {
-        console.log(userInfo);
         setCurrentUser(userInfo);
       })
       .catch((error) => {
@@ -39,7 +38,6 @@ function App() {
   useEffect(() => {
     api.getInitialCards()
       .then((cardsData) => {
-        console.log(cardsData);
         setCards(cardsData);
       })
       .catch((error) => console.error(`Error: ${error}`));
@@ -50,7 +48,6 @@ function App() {
   }
 
   const handleDeleteConfirm = () => {
-    console.log(cardToDelete);
     if (cardToDelete) {
       return api.deleteCard(cardToDelete._id)
         .then(() => {

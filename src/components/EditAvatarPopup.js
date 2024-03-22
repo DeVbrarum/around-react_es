@@ -89,7 +89,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
                 onClick={(e) => e.target.select()}
                 required
             />
-            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors}</span> {/* For future error handling*/}
+            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors}</span>
 
         </PopupWithForm>
     );

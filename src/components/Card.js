@@ -6,7 +6,7 @@ import heartIcon from '../images/Icons/wheart.png';
 function Card(props) {
     const currentUser = useContext(CurrentUserContext);
 
-    //Verificate current user is owner pictures
+    //Verify that the current user is the owner of the images
     const isOwner = props.card.owner._id === currentUser._id;
 
     const isLiked = props.card.likes.some(like => like._id === currentUser._id);

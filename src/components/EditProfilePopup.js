@@ -93,7 +93,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 value={inputs.name}
                 onChange={handleChange}
             />
-            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors.name}</span>{/* For future error handling */}
+            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors.name}</span>
 
             <input
                 type="text"
@@ -104,7 +104,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 value={inputs.about}
                 onChange={handleChange}
             />
-            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors.about}</span>{/* For future error handling */}
+            <span className={`empty-field ${showErrors ? "empty-field_error" : ""}`}>{errors.about}</span>
 
         </PopupWithForm>
     );
